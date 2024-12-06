@@ -7,7 +7,12 @@ interface Props {
 	disabled?: React.ButtonHTMLAttributes<HTMLButtonElement>['disabled'];
 }
 
-export default function Button({ children, type, onClick, disabled }: Props) {
+export default function Button({
+	children,
+	type = 'button',
+	onClick,
+	disabled,
+}: Props) {
 	return (
 		<button
 			type={type}
