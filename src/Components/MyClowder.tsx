@@ -10,6 +10,7 @@ import CatCard from './CatCard';
 export default function MyClowder() {
 	const { userId } = useContext(UserContext);
 	const [myCats, setMyCats] = useState<CatFromAxios[]>([]);
+	const [selectedCat, setSelectedCat] = useState<CatFromAxios | null>(null);
 
 	useEffect(() => {
 		if (userId) {
@@ -21,21 +22,20 @@ export default function MyClowder() {
 		}
 	}, [userId]);
 
-	return (
+	return selectedCat ? (
+		<ModalPopover>
+			<CatProfile />
+		</ModalPopover>
+	) : (
 		<>
 			<H2>My Clowder</H2>
 			<ul>
 				{myCats.map((cat) => (
 					<li key={cat.id}>
-						<CatCard cat={cat}></CatCard>
+						<CatCard cat={cat} setSelectedCat={setSelectedCat} />
 					</li>
 				))}
 			</ul>
-			{false && (
-				<ModalPopover>
-					<CatProfile></CatProfile>
-				</ModalPopover>
-			)}
 		</>
 	);
 }
